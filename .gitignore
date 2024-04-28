@@ -1,0 +1,4 @@
+.vscode/*
+*.parquet
+multilingual-wikihow-qa-16k/*
+dataset/*
