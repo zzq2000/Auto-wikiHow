@@ -16,7 +16,7 @@ dataset from: [multilingual-wikihow-qa-16k](https://huggingface.co/datasets/0x22
 ### raw dataset download
 ```sh
 git lfs install
-git clone https://huggingface.co/datasets/0x22almostEvil/multilingual-wikihow-qa-16k
+git clone git@hf.co:datasets/0x22almostEvil/multilingual-wikihow-qa-16k
 ```
 
 ### dataset split
