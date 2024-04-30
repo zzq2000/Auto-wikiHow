@@ -1,6 +1,7 @@
 import os
 import json
 import argparse
+from tqdm import tqdm
 import pyarrow.parquet as pq
 from sklearn.model_selection import train_test_split
 
@@ -16,9 +17,9 @@ def data_split(file_path, random_state, base_path, train_size, val_size, test_si
 
     grouped = df.groupby('lang')
 
-    # os.makedirs(os.path.join(base_path, lang), exist_ok=True)
+    os.makedirs(os.path.join(base_path, lang), exist_ok=True)
 
-    for lang, group in grouped:
+    for lang, group in tqdm(grouped):
         train, temp = train_test_split(group, train_size=train_size, random_state=random_state)  # 80% train, 20% temp
         val, test = train_test_split(temp, train_size=val_size, random_state=random_state)  # 10% val, 10% test
 
