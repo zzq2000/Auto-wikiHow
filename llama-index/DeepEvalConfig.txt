@@ -1,0 +1,60 @@
+额外修改 deepeval：
+gpt_model.py
+valid_gpt_models = [
+    "gpt-4-turbo-preview",
+    "gpt-4-0125-preview",
+    "gpt-4-1106-preview",
+    "gpt-4",
+    "gpt-4-32k",
+    "gpt-4-0613",
+    "gpt-4-32k-0613",
+    "gpt-3.5-turbo-1106",
+    "gpt-3.5-turbo",
+    "gpt-3.5-turbo-16k",
+    "gpt-3.5-turbo-0613",
+    "gpt-3.5",
+]
+
+base.py
+class BaseEvaluator(PromptMixin):
+    """Base Evaluator class."""
+
+    def _get_prompt_modules(self) -> PromptMixinType:
+        """Get prompt modules."""
+        return {}
+
+    def evaluate(
+        self,
+        query: Optional[str] = None,
+        response: Optional[str] = None,
+        contexts: Optional[Sequence[str]] = None,
+        **kwargs: Any,
+    ) -> EvaluationResult:
+        """Run evaluation with query string, retrieved contexts,
+        and generated response string.
+
+        Subclasses can override this method to provide custom evaluation logic and
+        take in additional arguments.
+        """
+        loop = None
+        try:
+            loop = asyncio.get_event_loop()
+        except:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        return loop.run_until_complete(
+            self.aevaluate(
+                query=query,
+                response=response,
+                contexts=contexts,
+                **kwargs,
+            )
+        )
+        # return asyncio.run(
+        #     self.aevaluate(
+        #         query=query,
+        #         response=response,
+        #         contexts=contexts,
+        #         **kwargs,
+        #     )
+        # )
