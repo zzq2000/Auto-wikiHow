@@ -1,3 +1,4 @@
 pandas
 pyarrow
+tqdm
 scikit-learn==1.4.2
